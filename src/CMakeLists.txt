@@ -1,0 +1,2 @@
+add_subdirectory(Adapters)
+add_subdirectory(Domain)
