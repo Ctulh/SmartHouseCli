@@ -5,6 +5,8 @@
 
 #include "DomainTests/LightingDeviceTest.hpp"
 #include "DomainTests/PerformerTests/PerformerTest.hpp"
+#include "DomainTests/DeviceContainerTest.hpp"
+#include "DomainTests/PerformerTests/RequestBuilderTest.hpp"
 
 int main(int argc, char** argv) {
     using testing::InitGoogleTest;

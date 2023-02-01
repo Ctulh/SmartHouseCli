@@ -11,6 +11,7 @@ enum class DEVICE_TYPE {
 };
 
 struct BasicDeviceInfo {
+    DEVICE_TYPE deviceType;
     std::string deviceName;
     std::string deviceAddr;
 };

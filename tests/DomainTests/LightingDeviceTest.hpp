@@ -51,7 +51,7 @@ public:
 class LightingDeviceAlwaysSuccess: public ::testing::Test {
 public:
     void SetUp() override {
-        m_lightingDevice = std::make_unique<LightingDevice<AlwaysSuccessPerformer>>();
+        m_lightingDevice = std::make_unique<LightingDevice>(std::make_unique<AlwaysSuccessPerformer>());
     }
     void TearDown() override {
 
@@ -63,7 +63,7 @@ protected:
 class LightingDeviceAlwaysFail: public ::testing::Test {
 public:
     void SetUp() override {
-        m_lightingDevice = std::make_unique<LightingDevice<AlwaysFailPerformer>>();
+        m_lightingDevice = std::make_unique<LightingDevice>(std::make_unique<AlwaysFailPerformer>());
     }
     void TearDown() override {
 

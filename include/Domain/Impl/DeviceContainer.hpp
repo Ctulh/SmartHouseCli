@@ -9,8 +9,9 @@
 
 class DeviceContainer final : public IDeviceContainer {
 public:
-    void addDevice(const BasicDeviceInfo &) override;
-    void deleteDevice(const BasicDeviceInfo &) override;
+    void addDevice(IBasicDevicePtr) override;
+    void deleteDevice(BasicDeviceInfo const&) override;
+    void swap(BasicDeviceInfo const&, BasicDeviceInfo const&);
     Devices getDevices() const override;
 
 public:

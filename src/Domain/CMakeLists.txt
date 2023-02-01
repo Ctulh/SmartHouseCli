@@ -14,9 +14,16 @@ set(HEADERS
 
 set(SOURCES
         Impl/DeviceContainer.cpp
-        Impl/LightingDevice.cpp)
+        Impl/LightingDevice.cpp
+        Performer/PerformerImpl.cpp
+        Performer/RequestCreator.cpp
+        Performer/RequestSender.cpp
+        Performer/ResponseParser.cpp)
 
 
 add_library(${LIB_NAME} ${HEADERS} ${SOURCES})
 
-target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+set(INET_INCLUDE ${PROJECT_SOURCE_DIR}/third_party/InetLib/include)
+
+target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${INET_INCLUDE})
+target_link_libraries(${LIB_NAME} PRIVATE InetLib SocketReaderLib)
