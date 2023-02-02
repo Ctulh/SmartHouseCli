@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Domain/Performer/RequestCreator.hpp"
+#include "Domain/Performers/YeelightPerformer/RequestCreator.hpp"
 
 TEST(RequestCreatorTest, turnOnTestWithDefaultArguments) {
     std::string const request = "{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\", 500]}\r\n";
@@ -58,5 +58,21 @@ TEST(RequestCreatorTest, setBrightnessTestWithSpecificArguments) {
     std::string requestBuiltByCreator;
 
     ASSERT_NO_THROW(requestBuiltByCreator = RequestCreator::setBrightness(50, "sudden", 123));
+    ASSERT_EQ(requestBuiltByCreator, request);
+}
+
+TEST(RequestCreatorTest, setZeroBrightness) {
+    std::string const request = "{\"id\":1,\"method\":\"set_bright\",\"params\":[1, \"smooth\", 500]}\r\n";
+    std::string requestBuiltByCreator;
+
+    ASSERT_NO_THROW(requestBuiltByCreator = RequestCreator::setBrightness(0));
+    ASSERT_EQ(requestBuiltByCreator, request);
+}
+
+TEST(RequestCreatorTest, setNegativeBrightness) {
+    std::string const request = "{\"id\":1,\"method\":\"set_bright\",\"params\":[1, \"smooth\", 500]}\r\n";
+    std::string requestBuiltByCreator;
+
+    ASSERT_NO_THROW(requestBuiltByCreator = RequestCreator::setBrightness(-1));
     ASSERT_EQ(requestBuiltByCreator, request);
 }
