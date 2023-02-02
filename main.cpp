@@ -3,7 +3,7 @@
 #include "Domain/ILightingDevice.hpp"
 #include "Domain/Impl/LightingDevice.hpp"
 #include "Domain/Impl/IPerformer.hpp"
-#include "Domain/Performer/PerformerImpl.hpp"
+#include "Domain/Performers/YeelightPerformer/PerformerImpl.hpp"
 
 #include <thread>
 
@@ -16,14 +16,19 @@ int main() {
 
     while(true) {
         std::cin >> option;
-        if (option == "on")
-            bulb->turnOn();
+        if (option == "on") {
+            auto result = bulb->turnOn();
+            std::cout << result.getMessage() << std::endl;
+        }
         else if (option == "c")
             break;
-        else if (option == "off")
-            bulb->turnOff();
+        else if (option == "off") {
+            auto result = bulb->turnOff();
+            std::cout << result.getMessage() << std::endl;
+        }
         else {
-            bulb->setBrightness(std::stoi(option));
+            auto result = bulb->setBrightness(std::stoi(option));
+            std::cout << result.getMessage() << std::endl;
         }
     }
 }

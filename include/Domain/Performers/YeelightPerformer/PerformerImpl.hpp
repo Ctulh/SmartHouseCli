@@ -9,4 +9,6 @@ public:
     ResultObject turnOff(BasicDeviceInfo const&) override;
     ResultObject toggle(BasicDeviceInfo const&) override;
     ResultObject setBrightness(BasicDeviceInfo const&, int) override;
+private:
+    static ResultObject createResponse(std::string const&);
 };

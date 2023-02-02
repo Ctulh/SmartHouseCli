@@ -51,7 +51,8 @@ public:
 class LightingDeviceAlwaysSuccess: public ::testing::Test {
 public:
     void SetUp() override {
-        m_lightingDevice = std::make_unique<LightingDevice>(std::make_unique<AlwaysSuccessPerformer>());
+        BasicDeviceInfo basicDeviceInfo {.deviceName = "testDevice", .deviceAddr = "127.0.0.1"};
+        m_lightingDevice = std::make_unique<LightingDevice>(std::make_unique<AlwaysSuccessPerformer>(), basicDeviceInfo);
     }
     void TearDown() override {
 
@@ -63,7 +64,8 @@ protected:
 class LightingDeviceAlwaysFail: public ::testing::Test {
 public:
     void SetUp() override {
-        m_lightingDevice = std::make_unique<LightingDevice>(std::make_unique<AlwaysFailPerformer>());
+        BasicDeviceInfo basicDeviceInfo {.deviceName = "testDevice", .deviceAddr = "127.0.0.1"};
+        m_lightingDevice = std::make_unique<LightingDevice>(std::make_unique<AlwaysFailPerformer>(), basicDeviceInfo);
     }
     void TearDown() override {
 

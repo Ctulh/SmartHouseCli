@@ -10,20 +10,24 @@ set(HEADERS
         ${HEADERS_PATH}/IBasicDevice.hpp
         ${HEADERS_PATH}/IDeviceContainer.hpp
         ${HEADERS_PATH}/ILightingDevice.hpp
-        ${HEADERS_PATH}/ResultObject.hpp)
+        ${HEADERS_PATH}/ResultObject.hpp
+        ${HEADERS_PATH}/Performers/YeelightPerformer/PerformerImpl.hpp
+        ${HEADERS_PATH}/Performers/YeelightPerformer/RequestCreator.hpp
+        ${HEADERS_PATH}/Performers/YeelightPerformer/RequestSender.hpp
+        ${HEADERS_PATH}/Performers/YeelightPerformer/ResponseParser.hpp)
 
 set(SOURCES
         Impl/DeviceContainer.cpp
         Impl/LightingDevice.cpp
-        Performer/PerformerImpl.cpp
-        Performer/RequestCreator.cpp
-        Performer/RequestSender.cpp
-        Performer/ResponseParser.cpp)
+        Performers/YeelightPerformer/PerformerImpl.cpp
+        Performers/YeelightPerformer/RequestCreator.cpp
+        Performers/YeelightPerformer/RequestSender.cpp
+        Performers/YeelightPerformer/ResponseParser.cpp)
 
 
 add_library(${LIB_NAME} ${HEADERS} ${SOURCES})
 
 set(INET_INCLUDE ${PROJECT_SOURCE_DIR}/third_party/InetLib/include)
 
-target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${INET_INCLUDE})
-target_link_libraries(${LIB_NAME} PRIVATE InetLib SocketReaderLib)
+target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${INET_INCLUDE} ${CONAN_INCLUDE_DIRS_NLOHMANN_JSON})
+target_link_libraries(${LIB_NAME} PRIVATE InetLib SocketReaderLib ${CONAN_LIBS_NLOHMANN_JSON})

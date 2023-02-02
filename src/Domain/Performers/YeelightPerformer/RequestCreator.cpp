@@ -4,7 +4,7 @@
 
 #include <sstream>
 
-#include "Domain/Performer/RequestCreator.hpp"
+#include "Domain/Performers/YeelightPerformer/RequestCreator.hpp"
 
 std::string RequestCreator::turnOn(std::string const& effect, int duration) {
     std::stringstream ss;
@@ -37,6 +37,9 @@ std::string RequestCreator::toggle() {
 }
 
 std::string RequestCreator::setBrightness(int brightness, const std::string &effect, int duration) {
+    if(brightness <= 0)
+        brightness = 1;
+
     std::stringstream ss;
     ss << "{"
             "\"id\":1,"
