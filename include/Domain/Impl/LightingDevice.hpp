@@ -15,7 +15,7 @@ public:
     ResultObject turnOn() override;
     ResultObject turnOff() override;
     ResultObject toggle() override;
-    BasicDeviceInfo getDeviceInfo() override;
+    BasicDeviceInfo getInfo() override;
 private:
     BasicDeviceInfo m_info;
     IPerformerPtr m_performer;

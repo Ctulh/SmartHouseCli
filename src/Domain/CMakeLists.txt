@@ -17,6 +17,7 @@ set(HEADERS
         ${HEADERS_PATH}/Performers/YeelightPerformer/ResponseParser.hpp)
 
 set(SOURCES
+        Impl/LightGroupImpl.cpp
         Impl/DeviceContainer.cpp
         Impl/LightingDevice.cpp
         Performers/YeelightPerformer/PerformerImpl.cpp
@@ -30,4 +31,4 @@ add_library(${LIB_NAME} ${HEADERS} ${SOURCES})
 set(INET_INCLUDE ${PROJECT_SOURCE_DIR}/third_party/InetLib/include)
 
 target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${INET_INCLUDE} ${CONAN_INCLUDE_DIRS_NLOHMANN_JSON})
-target_link_libraries(${LIB_NAME} PRIVATE InetLib SocketReaderLib ${CONAN_LIBS_NLOHMANN_JSON})
+target_link_libraries(${LIB_NAME} PRIVATE InetLib SocketReaderLib ${PROJECT_NAME}.UtilsLib UtilsLib ${CONAN_LIBS_NLOHMANN_JSON})

@@ -10,3 +10,5 @@ public:
 public:
     virtual ResultObject setBrightness(int brightnessPercents) = 0;
 };
+
+using ILightingDevicePtr = std::unique_ptr<ILightingDevice>;

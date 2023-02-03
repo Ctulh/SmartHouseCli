@@ -33,3 +33,20 @@ TEST(ResponseParserTest, TestParseIncorrectReponse) {
     auto result = responseParser.getResult();
     ASSERT_FALSE(result.has_value());
 }
+
+TEST(ResponseParserTest, TestParseWithMoreThanOneValueInResult) {
+    std::string const response = R"({"id":1, "result":["on", "smooth", 500]})";
+
+    ResponseParser responseParser(response);
+
+    auto id = responseParser.getId();
+    ASSERT_TRUE(id.has_value());
+    ASSERT_EQ(id.value(), 1);
+
+    auto result = responseParser.getResult();
+    ASSERT_TRUE(result.has_value());
+    ASSERT_EQ(result.value().size(), 3);
+    ASSERT_EQ(result.value()[0], "on");
+    ASSERT_EQ(result.value()[1], "smooth");
+    ASSERT_EQ(result.value()[2], "500");
+}

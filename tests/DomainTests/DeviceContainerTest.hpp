@@ -30,7 +30,7 @@ public:
     ResultObject toggle() override {
         return ResultObject(true);
     }
-    BasicDeviceInfo getDeviceInfo() override {
+    BasicDeviceInfo getInfo() override {
         return m_basicDeviceInfo;
     }
 private:
@@ -39,7 +39,7 @@ private:
 
 TEST(ContainerTest, TestAddDeviceToContainer) {
     std::shared_ptr<IDeviceContainer> container = std::make_shared<DeviceContainer>();
-    Devices result;
+    DevicesInfo result;
 
     ASSERT_NO_THROW(container->addDevice(std::make_unique<TestDevice>(::deviceAddrFirst)));
     ASSERT_NO_THROW(result = container->getDevices());
@@ -48,7 +48,7 @@ TEST(ContainerTest, TestAddDeviceToContainer) {
 
 TEST(ContainerTest, TestAddDevicesWithEqualAdressesToContainer) {
     std::shared_ptr<IDeviceContainer> container = std::make_shared<DeviceContainer>();
-    Devices result;
+    DevicesInfo result;
 
     ASSERT_NO_THROW(container->addDevice(std::make_unique<TestDevice>(::deviceAddrFirst)));
     ASSERT_NO_THROW(result = container->getDevices());
@@ -61,7 +61,7 @@ TEST(ContainerTest, TestAddDevicesWithEqualAdressesToContainer) {
 
 TEST(ContainerTest, TestAddDevicesWithDifferentAdressesToContainer) {
     std::shared_ptr<IDeviceContainer> container = std::make_shared<DeviceContainer>();
-    Devices result;
+    DevicesInfo result;
 
     ASSERT_NO_THROW(container->addDevice(std::make_unique<TestDevice>(::deviceAddrFirst)));
     ASSERT_NO_THROW(result = container->getDevices());
@@ -74,7 +74,7 @@ TEST(ContainerTest, TestAddDevicesWithDifferentAdressesToContainer) {
 
 TEST(ContainerTest, TestDeleteDeviceFromContainer) {
     std::shared_ptr<IDeviceContainer> container = std::make_shared<DeviceContainer>();
-    Devices result;
+    DevicesInfo result;
 
     ASSERT_NO_THROW(container->addDevice(std::make_unique<TestDevice>(::deviceAddrFirst)));
     ASSERT_NO_THROW(result = container->getDevices());
@@ -93,7 +93,7 @@ TEST(ContainerTest, TestDeleteDeviceFromContainer) {
 
 TEST(ContainerTest, TestSwapDevices) {
     std::shared_ptr<IDeviceContainer> container = std::make_shared<DeviceContainer>();
-    Devices result;
+    DevicesInfo result;
 
     BasicDeviceInfo firstDevice {.deviceName = ::deviceName, .deviceAddr = ::deviceAddrFirst};
     BasicDeviceInfo secondDevice {.deviceName = ::deviceName, .deviceAddr = ::deviceAddrSecond};
@@ -124,7 +124,7 @@ TEST(ContainerTest, TestSwapDevices) {
 
 TEST(ContainerTest, TestSwapDevicesWithOneDevice) {
     std::shared_ptr<IDeviceContainer> container = std::make_shared<DeviceContainer>();
-    Devices result;
+    DevicesInfo result;
 
     BasicDeviceInfo firstDevice {.deviceName = ::deviceName, .deviceAddr = ::deviceAddrFirst};
     BasicDeviceInfo secondDevice {.deviceName = ::deviceName, .deviceAddr = ::deviceAddrSecond};

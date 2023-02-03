@@ -12,7 +12,7 @@ public:
     void addDevice(IBasicDevicePtr) override;
     void deleteDevice(BasicDeviceInfo const&) override;
     void swap(BasicDeviceInfo const&, BasicDeviceInfo const&);
-    Devices getDevices() const override;
+    DevicesInfo getDevices() const override;
 
 public:
     std::vector<IBasicDevicePtr> m_devices;
