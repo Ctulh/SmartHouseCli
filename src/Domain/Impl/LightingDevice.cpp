@@ -23,6 +23,6 @@ ResultObject LightingDevice::setBrightness(int brightnessPercents) {
     return m_performer->setBrightness(m_info, brightnessPercents);
 }
 
-BasicDeviceInfo LightingDevice::getDeviceInfo() {
+BasicDeviceInfo LightingDevice::getInfo() {
     return m_info;
 }

@@ -10,6 +10,9 @@
 #include <algorithm>
 
 ResultObject PerformerImpl::createResponse(std::string const& response) {
+
+    ResponseParser parser(response);
+    auto result = parser.getResult();
     return ResultObject(true, response);
 }
 

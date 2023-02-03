@@ -5,10 +5,7 @@
 #include <vector>
 #include <memory>
 
-enum class DEVICE_TYPE {
-    UNDEFINED = 0,
-    BULB = 1,
-};
+#include "DeviceType.hpp"
 
 struct BasicDeviceInfo {
     DEVICE_TYPE deviceType;
@@ -16,4 +13,4 @@ struct BasicDeviceInfo {
     std::string deviceAddr;
 };
 
-using Devices = std::vector<BasicDeviceInfo>;
+using DevicesInfo = std::vector<BasicDeviceInfo>;

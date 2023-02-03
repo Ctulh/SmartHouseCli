@@ -8,10 +8,10 @@
 #include "Domain/Impl/DeviceContainer.hpp"
 
 void DeviceContainer::addDevice(IBasicDevicePtr devicePtr) {
-    auto deviceAddr = devicePtr->getDeviceInfo().deviceAddr;
+    auto deviceAddr = devicePtr->getInfo().deviceAddr;
 
     auto it = std::find_if(m_devices.begin(), m_devices.end(), [deviceAddr](auto const& el) -> bool {
-        return deviceAddr == el->getDeviceInfo().deviceAddr;
+        return deviceAddr == el->getInfo().deviceAddr;
     });
 
     if(it == m_devices.end()) {
@@ -21,13 +21,13 @@ void DeviceContainer::addDevice(IBasicDevicePtr devicePtr) {
 
 void DeviceContainer::deleteDevice(BasicDeviceInfo const& deviceInfo) {
     std::erase_if(m_devices, [&deviceInfo](auto const& el) -> bool {
-        return (el->getDeviceInfo().deviceAddr == deviceInfo.deviceAddr);
+        return (el->getInfo().deviceAddr == deviceInfo.deviceAddr);
     });
 }
 
 void DeviceContainer::swap(BasicDeviceInfo const& firstDevice, BasicDeviceInfo const& secondDevice) {
     auto findIfSameAddr = [](auto deviceAddr, auto const& el) -> bool {
-        return el->getDeviceInfo().deviceAddr == deviceAddr;
+        return el->getInfo().deviceAddr == deviceAddr;
     };
 
     auto firstDeviceAddr = firstDevice.deviceAddr;
@@ -47,11 +47,11 @@ void DeviceContainer::swap(BasicDeviceInfo const& firstDevice, BasicDeviceInfo c
         std::iter_swap(firstIt, secondIt);
 }
 
-Devices DeviceContainer::getDevices() const {
-    Devices output;
+DevicesInfo DeviceContainer::getDevices() const {
+    DevicesInfo output;
     output.reserve(m_devices.size());
     for(auto const& el: m_devices) {
-        output.push_back(el->getDeviceInfo());
+        output.push_back(el->getInfo());
     }
     return output;
 }

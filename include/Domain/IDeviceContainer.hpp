@@ -10,6 +10,6 @@ public:
 public:
     virtual void addDevice(IBasicDevicePtr) = 0;
     virtual void deleteDevice(BasicDeviceInfo const&) = 0;
-    virtual Devices getDevices() const = 0;
+    virtual DevicesInfo getDevices() const = 0;
     virtual void swap(BasicDeviceInfo const&, BasicDeviceInfo const&) = 0;
 };

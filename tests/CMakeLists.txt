@@ -7,7 +7,12 @@ set(SOURCES
         main_test.cpp)
 
 set(HEADERS
-             DomainTests/LightingDeviceTest.hpp)
+            DomainTests/PerformerTests/RequestBuilderTest.hpp
+            DomainTests/PerformerTests/ResponseParserTest.hpp
+            DomainTests/DeviceContainerTest.hpp
+            DomainTests/LightGroupTest.hpp
+            DomainTests/LightingDeviceTest.hpp
+            UtilsTests/StringOperationsTest.hpp)
 
 add_executable(${TEST_NAME} ${SOURCES})
 
