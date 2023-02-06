@@ -23,6 +23,14 @@ ResultObject LightingDevice::setBrightness(int brightnessPercents) {
     return m_performer->setBrightness(m_info, brightnessPercents);
 }
 
+ResultObject LightingDevice::setColorTemperature(int colorTemperature) {
+    return m_performer->setColorTemperature(m_info, colorTemperature);
+}
+
 BasicDeviceInfo LightingDevice::getInfo() {
     return m_info;
+}
+
+DeviceMethods LightingDevice::getSupportedMethods() {
+    return DeviceMethods();
 }

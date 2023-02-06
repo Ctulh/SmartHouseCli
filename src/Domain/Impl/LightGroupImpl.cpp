@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <future>
+#include "Domain/ILightingDeviceColor.hpp"
 
 LightGroupImpl::LightGroupImpl() {
     m_info.deviceName = "LightGroup";
@@ -80,6 +81,28 @@ ResultObject LightGroupImpl::setBrightness(int brightnessPercents) {
     return result;
 }
 
+ResultObject LightGroupImpl::setColor(uint8_t red, uint8_t green, uint8_t blue) {
+    auto result = launchAsyncForEach([red, green, blue](ILightingDevicePtr& lightingDevice) -> ResultObject {
+        auto lightingDeviceColor = dynamic_cast<ILightingDeviceColor*>(lightingDevice.get());
+        if(lightingDeviceColor)
+            return lightingDeviceColor->setColor(red, green, blue);
+        return ResultObject(false, "Can't cast bulb to color bulb");
+    });
+    return result;
+}
+
+ResultObject LightGroupImpl::setColorTemperature(int colorTemperature) {
+    auto result = launchAsyncForEach([colorTemperature](ILightingDevicePtr& lightingDevice) -> ResultObject {
+        return lightingDevice->setColorTemperature(colorTemperature);
+    });
+    return result;
+}
+
 BasicDeviceInfo LightGroupImpl::getInfo() {
     return m_info;
 }
+
+DeviceMethods LightGroupImpl::getSupportedMethods() {
+    return DeviceMethods();
+}
+

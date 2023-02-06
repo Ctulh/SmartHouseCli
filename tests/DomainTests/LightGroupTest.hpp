@@ -4,9 +4,10 @@
 #include "Domain/ILightGroup.hpp"
 #include "Domain/Impl/LightGroupImpl.hpp"
 #include "Domain/ILightingDevice.hpp"
+#include "Domain/ILightingDeviceColor.hpp"
 #include <gtest/gtest.h>
 
-class LightingDeviceTest final: public ILightingDevice {
+class LightingDeviceTest final: public ILightingDeviceColor {
 public:
     LightingDeviceTest(std::string const& name, std::string const& addr) {
         m_info.deviceName = name;
@@ -30,9 +31,25 @@ public:
         m_info.deviceName = "brightnessSetTo" + std::to_string(brightnessPercents);
         return ResultObject(true);
     }
+    ResultObject setColor(uint8_t red, uint8_t green, uint8_t blue) override {
+        m_info.deviceName = "ColorSetTo"
+                                        + std::to_string(red) + "_"
+                                        + std::to_string(green) + "_"
+                                        + std::to_string(blue);
+        return ResultObject(true);
+    }
+    ResultObject setColorTemperature(int colorTemperature) override{
+        m_info.deviceName = "ColorTemperatureSetTo"
+                            + std::to_string(colorTemperature);
+        return ResultObject(true);
+    }
     BasicDeviceInfo getInfo() override {
         return m_info;
     }
+    DeviceMethods getSupportedMethods() {
+        return DeviceMethods();
+    }
+
 private:
     BasicDeviceInfo m_info;
 };
@@ -207,6 +224,30 @@ TEST_F(LightGroupFixture, TestSetBrightness) {
     ASSERT_TRUE(devicesInfo[1].deviceName != expectedResult);
 
     ASSERT_NO_THROW(m_lightGroup->setBrightness(brightnessValue));
+
+    devicesInfo = m_lightGroup->getDevicesInfo();
+
+    ASSERT_EQ(devicesInfo[0].deviceName, expectedResult);
+    ASSERT_EQ(devicesInfo[1].deviceName, expectedResult);
+}
+
+TEST_F(LightGroupFixture, TestSetColor) {
+    constexpr int redColorValue = 111;
+    constexpr int greenColorValue = 112;
+    constexpr int blueColorValue = 113;
+
+    const auto expectedResult = "ColorSetTo"
+                                + std::to_string(redColorValue) + "_"
+                                + std::to_string(greenColorValue) + "_"
+                                + std::to_string(blueColorValue);
+
+    DevicesInfo devicesInfo;
+    devicesInfo = m_lightGroup->getDevicesInfo();
+
+    ASSERT_TRUE(devicesInfo[0].deviceName != expectedResult);
+    ASSERT_TRUE(devicesInfo[1].deviceName != expectedResult);
+
+    ASSERT_NO_THROW(m_lightGroup->setColor(redColorValue, greenColorValue, blueColorValue));
 
     devicesInfo = m_lightGroup->getDevicesInfo();
 

@@ -7,16 +7,20 @@
 #include "IPerformer.hpp"
 
 
-class LightingDevice final: public ILightingDevice {
+class LightingDevice: public virtual ILightingDevice {
 public:
     explicit LightingDevice(IPerformerPtr performer, BasicDeviceInfo const& deviceInfo);
 public:
-    ResultObject setBrightness(int brightnessPercents) override;
+    virtual DeviceMethods getSupportedMethods() override;
     ResultObject turnOn() override;
     ResultObject turnOff() override;
     ResultObject toggle() override;
     BasicDeviceInfo getInfo() override;
-private:
+
+    ResultObject setColorTemperature(int colorTemperature) override;
+    ResultObject setBrightness(int brightnessPercents) override;
+
+protected:
     BasicDeviceInfo m_info;
     IPerformerPtr m_performer;
 };

@@ -5,13 +5,14 @@ set(HEADERS_PATH ${PROJECT_SOURCE_DIR}/include/Domain)
 set(HEADERS
         ${HEADERS_PATH}/Impl/DeviceContainer.hpp
         ${HEADERS_PATH}/Impl/LightingDevice.hpp
+        ${HEADERS_PATH}/Impl/LightingDeviceColor.hpp
         ${HEADERS_PATH}/Impl/IPerformer.hpp
         ${HEADERS_PATH}/BasicDeviceInfo.hpp
         ${HEADERS_PATH}/IBasicDevice.hpp
         ${HEADERS_PATH}/IDeviceContainer.hpp
         ${HEADERS_PATH}/ILightingDevice.hpp
         ${HEADERS_PATH}/ResultObject.hpp
-        ${HEADERS_PATH}/Performers/YeelightPerformer/PerformerImpl.hpp
+        ${HEADERS_PATH}/Performers/YeelightPerformer/XiaomiPerformer.hpp
         ${HEADERS_PATH}/Performers/YeelightPerformer/RequestCreator.hpp
         ${HEADERS_PATH}/Performers/YeelightPerformer/RequestSender.hpp
         ${HEADERS_PATH}/Performers/YeelightPerformer/ResponseParser.hpp)
@@ -20,7 +21,8 @@ set(SOURCES
         Impl/LightGroupImpl.cpp
         Impl/DeviceContainer.cpp
         Impl/LightingDevice.cpp
-        Performers/YeelightPerformer/PerformerImpl.cpp
+        Impl/LightingDeviceColor.cpp
+        Performers/YeelightPerformer/XiaomiPerformer.cpp
         Performers/YeelightPerformer/RequestCreator.cpp
         Performers/YeelightPerformer/RequestSender.cpp
         Performers/YeelightPerformer/ResponseParser.cpp)

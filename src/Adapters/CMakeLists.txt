@@ -3,9 +3,13 @@ set(LIB_NAME ${PROJECT_NAME}.AdaptersLib)
 set(HEADERS_PATH ${PROJECT_SOURCE_DIR}/include/Adapters)
 
 set(HEADERS
-            ${HEADERS_PATH}/IBasicDeviceManager.hpp
-            ${HEADERS_PATH}/IBasicDeviceManipulator.hpp)
-set(SOURCES AdapterCli.cpp)
+            ${HEADERS_PATH}/IDeviceManager.hpp
+            ${HEADERS_PATH}/IDeviceManipulator.hpp
+            ${HEADERS_PATH}/Impl/DeviceManagerImpl.hpp
+            ${HEADERS_PATH}/Impl/DeviceManipulatorImpl.hpp)
+set(SOURCES
+            Impl/DeviceManagerImpl.cpp
+            Impl/DeviceManipulator.cpp)
 
 add_library(${LIB_NAME} ${HEADERS} ${SOURCES})
 

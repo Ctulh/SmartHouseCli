@@ -33,6 +33,10 @@ public:
     BasicDeviceInfo getInfo() override {
         return m_basicDeviceInfo;
     }
+    DeviceMethods getSupportedMethods() override {
+        return DeviceMethods();
+    }
+
 private:
     BasicDeviceInfo m_basicDeviceInfo;
 };

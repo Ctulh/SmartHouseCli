@@ -30,6 +30,12 @@ public:
     ResultObject setBrightness(BasicDeviceInfo const&, int) override {
         return ResultObject(true, ::setBrightnessTest);
     }
+    ResultObject setColor(const BasicDeviceInfo &, int, int, int) override {
+        return ResultObject(true);
+    }
+    ResultObject setColorTemperature(const BasicDeviceInfo &, int) override {
+        return ResultObject(true);
+    }
 };
 
 class AlwaysFailPerformer final: public IPerformer {
@@ -45,6 +51,12 @@ public:
     }
     ResultObject setBrightness(BasicDeviceInfo const&, int) override {
         return ResultObject(false, ::setBrightnessTest);
+    }
+    ResultObject setColor(const BasicDeviceInfo &, int, int, int) override {
+        return ResultObject(false);
+    }
+    ResultObject setColorTemperature(const BasicDeviceInfo &, int) override {
+        return ResultObject(false);
     }
 };
 

@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "ILightingDevice.hpp"
+#include "ILightingDeviceColor.hpp"
 
-class ILightGroup: public ILightingDevice {
+class ILightGroup: public ILightingDeviceColor {
 public:
     virtual ~ILightGroup() = default;
 public:
