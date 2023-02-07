@@ -14,6 +14,7 @@ public:
     ILightingDevicePtr remove(const std::string &deviceName) override;
     DevicesInfo getDevicesInfo() const override;
 
+    void setDeviceName(std::string const& deviceName) override;
     virtual DeviceMethods getSupportedMethods() override;
     ResultObject turnOn() override;
     ResultObject turnOff() override;

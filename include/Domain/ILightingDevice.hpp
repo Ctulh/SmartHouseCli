@@ -12,4 +12,4 @@ public:
     virtual ResultObject setColorTemperature(int colorTemperature) = 0;
 };
 
-using ILightingDevicePtr = std::unique_ptr<ILightingDevice>;
+using ILightingDevicePtr = std::shared_ptr<ILightingDevice>;

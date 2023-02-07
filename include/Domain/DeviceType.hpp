@@ -1,11 +1,9 @@
 
 #pragma once
 
-enum class DEVICE_TYPE {
+enum class DeviceType {
     UNDEFINED = 0,
-    XIAOMI_BULB = 1,
-    XIAOMI_VACUUM_CLEANER = 5,
-    BASIC_DEVICE = 2,
+    XIAOMI_LIGHTING_DEVICE = 1,
+    XIAOMI_LIGHTING_DEVICE_COLOR = 2,
     LIGHT_GROUP = 3,
-    DEVICE_GROUP = 4,
 };

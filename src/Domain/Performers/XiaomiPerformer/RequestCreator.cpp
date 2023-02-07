@@ -4,7 +4,7 @@
 
 #include <sstream>
 
-#include "Domain/Performers/YeelightPerformer/RequestCreator.hpp"
+#include "Domain/Performers/XiaomiPerformer/RequestCreator.hpp"
 
 std::string RequestCreator::turnOn(std::string const& effect, int duration) {
     std::stringstream ss;

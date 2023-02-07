@@ -3,30 +3,36 @@
 #include "Domain/ILightingDevice.hpp"
 #include "Domain/Impl/LightingDevice.hpp"
 #include "Domain/Impl/IPerformer.hpp"
-#include "Domain/Performers/YeelightPerformer/XiaomiPerformer.hpp"
+#include "Domain/Performers/XiaomiPerformer/XiaomiPerformer.hpp"
 #include "Domain/Impl/LightGroupImpl.hpp"
 #include "Domain/Impl/LightingDeviceColor.hpp"
 #include <signal.h>
 #include <thread>
 
+#include "Application/IApplication.hpp"
+#include "Application/Impl/ApplicationImpl.hpp"
+
+#include "Domain/IDeviceContainer.hpp"
+#include "Domain/Impl/DeviceContainer.hpp"
+
+#include "Adapters/IDeviceManager.hpp"
+#include "Adapters/IDeviceManipulator.hpp"
+#include "Adapters/Impl/DeviceManagerImpl.hpp"
+#include "Adapters/Impl/DeviceManipulatorImpl.hpp"
+
+
 int main() {
     signal(SIGPIPE, SIG_IGN);
-    auto performer1 = std::make_unique<XiaomiPerformer>();
-    auto performer2 = std::make_unique<XiaomiPerformer>();
-    auto performer3 = std::make_unique<XiaomiPerformer>();
 
-    BasicDeviceInfo bulbInfo1 {.deviceName = "bulb1", .deviceAddr = "192.168.100.6"};
-    BasicDeviceInfo bulbInfo2 {.deviceName = "bulb2", .deviceAddr = "192.168.100.7"};
-    BasicDeviceInfo bulbInfo3 {.deviceName = "bulb3", .deviceAddr = "192.168.100.8"};
+    std::unique_ptr<IDeviceContainer> deviceContainer = std::make_unique<DeviceContainer>();
+    std::shared_ptr<IApplication> application = std::make_shared<ApplicationImpl>(std::move(deviceContainer));
+    std::unique_ptr<IDeviceManager> deviceManager = std::make_unique<DeviceManager>(application);
 
-    auto bulb1 = std::make_unique<LightingDeviceColor>(std::make_unique<XiaomiPerformer>(), bulbInfo1);
-    auto bulb2 = std::make_unique<LightingDeviceColor>(std::make_unique<XiaomiPerformer>(), bulbInfo2);
-    auto bulb3 = std::make_unique<LightingDeviceColor>(std::make_unique<XiaomiPerformer>(), bulbInfo3);
+    deviceManager->addNewDevice({.deviceName = "bulb1", .deviceAddr = "192.168.100.6"}, DeviceFamily::XIAOMI, DeviceType::XIAOMI_LIGHTING_DEVICE_COLOR);
+    deviceManager->addNewDevice({.deviceName = "bulb2", .deviceAddr = "192.168.100.7"}, DeviceFamily::XIAOMI, DeviceType::XIAOMI_LIGHTING_DEVICE_COLOR);
+    deviceManager->addNewDevice({.deviceName = "bulb3", .deviceAddr = "192.168.100.8"}, DeviceFamily::XIAOMI, DeviceType::XIAOMI_LIGHTING_DEVICE_COLOR);
 
-    LightGroupImpl lightGroup;
-    lightGroup.add(std::move(bulb1));
-    lightGroup.add(std::move(bulb2));
-    lightGroup.add(std::move(bulb3));
+    application->createLightGroup({"bulb1", "bulb2", "bulb3"});
 
 
     BasicDeviceInfo vacuumInfo {.deviceName = "cleaner", .deviceAddr = "192.168.100.15"};
@@ -37,12 +43,13 @@ int main() {
     while(true) {
         std::cin >> option;
         if (option == "on") {
-            auto result = lightGroup.turnOn();
+//            auto result = lightGroup.turnOn();
+                deviceManager->getDevice("LightGroup")->turnOn();
         }
         else if (option == "-b") {
                 int brightness;
                 std::cin >> brightness;
-               auto result = lightGroup.setBrightness(brightness);
+                std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setBrightness(brightness);
         }
         else if(option == "-c") {
             int red;
@@ -51,21 +58,18 @@ int main() {
             std::cin >> red;
             std::cin >> green;
             std::cin >> blue;
-
-            auto result = lightGroup.setColor(red, green, blue);
+            std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setColor(red, green, blue);
+            //auto result = lightGroup.setColor(red, green, blue);
         }
         else if(option == "-k") {
             int colorTemperature;
             std::cin >> colorTemperature;
-            auto result = lightGroup.setColorTemperature(colorTemperature);
+            std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setColorTemperature(colorTemperature);
         }
         else if (option == "off") {
-            auto result = lightGroup.turnOff();
-            //std::cout << result.getMessage() << std::endl;
+            deviceManager->getDevice("LightGroup")->turnOff();
         }
         else {
-            auto result = lightGroup.setBrightness(std::stoi(option));
-            //std::cout << result.getMessage() << std::endl;
         }
     }
 }

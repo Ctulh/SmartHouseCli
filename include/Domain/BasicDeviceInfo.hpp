@@ -8,7 +8,7 @@
 #include "DeviceType.hpp"
 
 struct BasicDeviceInfo {
-    DEVICE_TYPE deviceType;
+    DeviceType deviceType;
     std::string deviceName;
     std::string deviceAddr;
 };

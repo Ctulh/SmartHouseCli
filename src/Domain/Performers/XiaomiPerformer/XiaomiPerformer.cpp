@@ -2,10 +2,10 @@
 // Created by ctuh on 2/1/23.
 //
 
-#include "Domain/Performers/YeelightPerformer/XiaomiPerformer.hpp"
-#include "Domain/Performers/YeelightPerformer/RequestCreator.hpp"
-#include "Domain/Performers/YeelightPerformer/RequestSender.hpp"
-#include "Domain/Performers/YeelightPerformer/ResponseParser.hpp"
+#include "Domain/Performers/XiaomiPerformer/XiaomiPerformer.hpp"
+#include "Domain/Performers/XiaomiPerformer/RequestCreator.hpp"
+#include "Domain/Performers/XiaomiPerformer/RequestSender.hpp"
+#include "Domain/Performers/XiaomiPerformer/ResponseParser.hpp"
 
 #include <algorithm>
 

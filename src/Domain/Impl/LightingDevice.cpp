@@ -7,6 +7,10 @@
 LightingDevice::LightingDevice(IPerformerPtr performer, BasicDeviceInfo const& deviceInfo): m_performer(std::move(performer)),
                                                                                             m_info(deviceInfo) {}
 
+void LightingDevice::setDeviceName(std::string const& deviceName) {
+    m_info.deviceName = deviceName;
+}
+
 ResultObject LightingDevice::turnOn() {
     return m_performer->turnOn(m_info);
 }

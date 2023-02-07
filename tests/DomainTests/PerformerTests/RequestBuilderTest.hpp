@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Domain/Performers/YeelightPerformer/RequestCreator.hpp"
+#include "Domain/Performers/XiaomiPerformer/RequestCreator.hpp"
 
 TEST(RequestCreatorTest, turnOnTestWithDefaultArguments) {
     std::string const request = "{\"id\":1,\"method\":\"set_power\",\"params\":[\"on\", \"smooth\", 500]}\r\n";

@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Domain/Performers/YeelightPerformer/ResponseParser.hpp"
+#include "Domain/Performers/XiaomiPerformer/ResponseParser.hpp"
 
 TEST(ResponseParserTest, TestParseSimpleResponse) {
     std::string const response = R"({"id":1, "result":["ok"]})";

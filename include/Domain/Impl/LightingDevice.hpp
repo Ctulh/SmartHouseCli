@@ -11,6 +11,7 @@ class LightingDevice: public virtual ILightingDevice {
 public:
     explicit LightingDevice(IPerformerPtr performer, BasicDeviceInfo const& deviceInfo);
 public:
+    void setDeviceName(std::string const& deviceName) override;
     virtual DeviceMethods getSupportedMethods() override;
     ResultObject turnOn() override;
     ResultObject turnOff() override;

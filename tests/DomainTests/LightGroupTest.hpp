@@ -12,9 +12,12 @@ public:
     LightingDeviceTest(std::string const& name, std::string const& addr) {
         m_info.deviceName = name;
         m_info.deviceAddr = addr;
-        m_info.deviceType = DEVICE_TYPE::BULB;
+        m_info.deviceType = DeviceType::XIAOMI_LIGHTING_DEVICE;
     }
 public:
+    void setDeviceName(std::string const& deviceName) override {
+        m_info.deviceName = deviceName;
+    }
     ResultObject turnOn() override {
         m_info.deviceName = "turnedOn";
         return ResultObject(true);
@@ -81,7 +84,7 @@ TEST(LightGroupTest, TestAddDeviceToLightGroup) {
     constexpr auto addr = "127.0.0.1";
 
     std::unique_ptr<ILightGroup> lightGroup = std::make_unique<LightGroupImpl>();
-    ASSERT_EQ(lightGroup->getInfo().deviceType, DEVICE_TYPE::LIGHT_GROUP);
+    ASSERT_EQ(lightGroup->getInfo().deviceType, DeviceType::LIGHT_GROUP);
     ASSERT_NO_THROW(lightGroup = std::make_unique<LightGroupImpl>());
 
     ASSERT_TRUE(lightGroup->getDevicesInfo().empty());
@@ -93,7 +96,7 @@ TEST(LightGroupTest, TestAddDeviceToLightGroup) {
 
     ASSERT_EQ(device.deviceName, name);
     ASSERT_EQ(device.deviceAddr, addr);
-    ASSERT_EQ(device.deviceType, DEVICE_TYPE::BULB);
+    ASSERT_EQ(device.deviceType, DeviceType::XIAOMI_LIGHTING_DEVICE);
 }
 
 TEST(LightGroupTest, TestAddDevicesWithSameName) {
@@ -113,7 +116,7 @@ TEST(LightGroupTest, TestAddDevicesWithSameName) {
 
     ASSERT_EQ(device.deviceName, name);
     ASSERT_EQ(device.deviceAddr, addr);
-    ASSERT_EQ(device.deviceType, DEVICE_TYPE::BULB);
+    ASSERT_EQ(device.deviceType, DeviceType::XIAOMI_LIGHTING_DEVICE);
 }
 
 TEST(LightGroupTest, TestAddDevicesWithDifferentNames) {
@@ -133,12 +136,12 @@ TEST(LightGroupTest, TestAddDevicesWithDifferentNames) {
     auto deviceFirst = lightGroup->getDevicesInfo()[0];
     ASSERT_EQ(deviceFirst.deviceName, nameFirst);
     ASSERT_EQ(deviceFirst.deviceAddr, addr);
-    ASSERT_EQ(deviceFirst.deviceType, DEVICE_TYPE::BULB);
+    ASSERT_EQ(deviceFirst.deviceType, DeviceType::XIAOMI_LIGHTING_DEVICE);
 
     auto deviceSecond = lightGroup->getDevicesInfo()[1];
     ASSERT_EQ(deviceSecond.deviceName, nameSecond);
     ASSERT_EQ(deviceSecond.deviceAddr, addr);
-    ASSERT_EQ(deviceSecond.deviceType, DEVICE_TYPE::BULB);
+    ASSERT_EQ(deviceSecond.deviceType, DeviceType::XIAOMI_LIGHTING_DEVICE);
 }
 
 TEST(LightGroupTest, TestRemoveDeviceToLightGroup) {
@@ -151,7 +154,7 @@ TEST(LightGroupTest, TestRemoveDeviceToLightGroup) {
     ASSERT_NO_THROW(lightGroup->add(std::make_unique<LightingDeviceTest>(name, addr)));
     ASSERT_EQ(lightGroup->getDevicesInfo().size(), 1);
 
-    std::unique_ptr<ILightingDevice> lightingDevice = nullptr;
+    ILightingDevicePtr lightingDevice = nullptr;
     ASSERT_NO_THROW(lightingDevice = lightGroup->remove(name));
 
     ASSERT_TRUE(lightingDevice != nullptr);
@@ -159,7 +162,7 @@ TEST(LightGroupTest, TestRemoveDeviceToLightGroup) {
 
     ASSERT_EQ(lightingDevice->getInfo().deviceName, name);
     ASSERT_EQ(lightingDevice->getInfo().deviceAddr, addr);
-    ASSERT_EQ(lightingDevice->getInfo().deviceType, DEVICE_TYPE::BULB);
+    ASSERT_EQ(lightingDevice->getInfo().deviceType, DeviceType::XIAOMI_LIGHTING_DEVICE);
 }
 
 TEST_F(LightGroupFixture, TestTurnOn) {

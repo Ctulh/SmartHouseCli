@@ -7,8 +7,8 @@
 
 DeviceManager::DeviceManager(IApplicationPtr applicationPtr): m_application(applicationPtr) {}
 
-void DeviceManager::addNewDevice(BasicDeviceInfo const& deviceInfo, DEVICE_TYPE deviceType) {
-    m_application->addNewDevice(deviceInfo, deviceType);
+void DeviceManager::addNewDevice(BasicDeviceInfo const& deviceInfo, DeviceFamily deviceFamily, DeviceType deviceType) {
+    m_application->addNewDevice(deviceInfo, deviceFamily, deviceType);
 }
 
 void DeviceManager::deleteDevice(BasicDeviceInfo const& deviceInfo) {
@@ -23,6 +23,6 @@ DevicesInfo DeviceManager::getDevices() const {
     return m_application->getDevices();
 }
 
-IBasicDevicePtr &DeviceManager::getDevice(const std::string &deviceName) {
+IBasicDevicePtr DeviceManager::getDevice(const std::string &deviceName) {
     return m_application->getDevice(deviceName);
 }

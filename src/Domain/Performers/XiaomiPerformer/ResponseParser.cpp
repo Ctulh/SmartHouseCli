@@ -2,7 +2,7 @@
 // Created by ctuh on 2/1/23.
 //
 
-#include "Domain/Performers/YeelightPerformer/ResponseParser.hpp"
+#include "Domain/Performers/XiaomiPerformer/ResponseParser.hpp"
 #include "Utils/JsonParser.hpp"
 #include "Utils/StringOperations.hpp"
 

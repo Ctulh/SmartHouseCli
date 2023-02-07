@@ -7,22 +7,59 @@
 
 #include "Domain/Impl/DeviceContainer.hpp"
 
+std::string DeviceContainer::generateUniqueNameForDevice(std::string const& deviceName) {
+    if(m_devices.empty())
+        return deviceName;
+
+    auto newDeviceName = deviceName + '_';
+    int counter = 1;
+
+    auto it = std::find_if(m_devices.begin(), m_devices.end(), [&deviceName](auto el) {
+        return (deviceName == el->getInfo().deviceName);
+    });
+    if(it == m_devices.end())
+        return deviceName;
+
+    for(auto const& device: m_devices) {
+        auto tempDeviceName = newDeviceName + std::to_string(counter);
+        it = std::find_if(m_devices.begin(), m_devices.end(), [&tempDeviceName](auto el) {
+            return (tempDeviceName == el->getInfo().deviceName);
+        });
+
+        if(it == m_devices.end()) {
+            return tempDeviceName;
+        }
+        counter++;
+    }
+}
+
 void DeviceContainer::addDevice(IBasicDevicePtr devicePtr) {
     auto deviceAddr = devicePtr->getInfo().deviceAddr;
+    auto deviceName = devicePtr->getInfo().deviceName;
 
-    auto it = std::find_if(m_devices.begin(), m_devices.end(), [deviceAddr](auto const& el) -> bool {
-        return deviceAddr == el->getInfo().deviceAddr;
+    auto it = std::find_if(m_devices.begin(), m_devices.end(), [&deviceAddr, &deviceName](auto const& el) -> bool {
+        return (deviceAddr == el->getInfo().deviceAddr);
     });
 
     if(it == m_devices.end()) {
+        deviceName = generateUniqueNameForDevice(deviceName);
+        devicePtr->setDeviceName(deviceName);
         m_devices.push_back(std::move(devicePtr));
     }
 }
 
 void DeviceContainer::deleteDevice(BasicDeviceInfo const& deviceInfo) {
     std::erase_if(m_devices, [&deviceInfo](auto const& el) -> bool {
-        return (el->getInfo().deviceAddr == deviceInfo.deviceAddr);
+        return (el->getInfo().deviceAddr == deviceInfo.deviceAddr) || (el->getInfo().deviceName == deviceInfo.deviceName);
     });
+}
+
+IBasicDevicePtr DeviceContainer::getDevice(std::string const& deviceName) {
+    auto it = std::find_if(m_devices.begin(), m_devices.end(), [&deviceName](auto const& el){
+        return el->getInfo().deviceName == deviceName;
+    });
+
+    return *it;
 }
 
 void DeviceContainer::swap(BasicDeviceInfo const& firstDevice, BasicDeviceInfo const& secondDevice) {

@@ -3,6 +3,9 @@ set(LIB_NAME ${PROJECT_NAME}.DomainLib)
 set(HEADERS_PATH ${PROJECT_SOURCE_DIR}/include/Domain)
 
 set(HEADERS
+        ${HEADERS_PATH}/Factories/AbstractFactory.hpp
+        ${HEADERS_PATH}/Factories/IFactory.hpp
+        ${HEADERS_PATH}/Factories/XiaomiDeviceFactory.hpp
         ${HEADERS_PATH}/Impl/DeviceContainer.hpp
         ${HEADERS_PATH}/Impl/LightingDevice.hpp
         ${HEADERS_PATH}/Impl/LightingDeviceColor.hpp
@@ -12,20 +15,22 @@ set(HEADERS
         ${HEADERS_PATH}/IDeviceContainer.hpp
         ${HEADERS_PATH}/ILightingDevice.hpp
         ${HEADERS_PATH}/ResultObject.hpp
-        ${HEADERS_PATH}/Performers/YeelightPerformer/XiaomiPerformer.hpp
-        ${HEADERS_PATH}/Performers/YeelightPerformer/RequestCreator.hpp
-        ${HEADERS_PATH}/Performers/YeelightPerformer/RequestSender.hpp
-        ${HEADERS_PATH}/Performers/YeelightPerformer/ResponseParser.hpp)
+        ${HEADERS_PATH}/Performers/XiaomiPerformer/XiaomiPerformer.hpp
+        ${HEADERS_PATH}/Performers/XiaomiPerformer/RequestCreator.hpp
+        ${HEADERS_PATH}/Performers/XiaomiPerformer/RequestSender.hpp
+        ${HEADERS_PATH}/Performers/XiaomiPerformer/ResponseParser.hpp)
 
 set(SOURCES
+        Factories/AbstractFactory.cpp
+        Factories/XiaomiDeviceFactory.cpp
         Impl/LightGroupImpl.cpp
         Impl/DeviceContainer.cpp
         Impl/LightingDevice.cpp
         Impl/LightingDeviceColor.cpp
-        Performers/YeelightPerformer/XiaomiPerformer.cpp
-        Performers/YeelightPerformer/RequestCreator.cpp
-        Performers/YeelightPerformer/RequestSender.cpp
-        Performers/YeelightPerformer/ResponseParser.cpp)
+        Performers/XiaomiPerformer/XiaomiPerformer.cpp
+        Performers/XiaomiPerformer/RequestCreator.cpp
+        Performers/XiaomiPerformer/RequestSender.cpp
+        Performers/XiaomiPerformer/ResponseParser.cpp)
 
 
 add_library(${LIB_NAME} ${HEADERS} ${SOURCES})

@@ -2,7 +2,7 @@
 // Created by ctuh on 2/1/23.
 //
 
-#include "Domain/Performers/YeelightPerformer/RequestSender.hpp"
+#include "Domain/Performers/XiaomiPerformer/RequestSender.hpp"
 
 #include "Inet/Socket.hpp"
 #include "Inet/InetAddress.hpp"

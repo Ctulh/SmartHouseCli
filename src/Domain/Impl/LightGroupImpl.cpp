@@ -10,7 +10,11 @@
 
 LightGroupImpl::LightGroupImpl() {
     m_info.deviceName = "LightGroup";
-    m_info.deviceType = DEVICE_TYPE::LIGHT_GROUP;
+    m_info.deviceType = DeviceType::LIGHT_GROUP;
+}
+
+void LightGroupImpl::setDeviceName(std::string const& deviceName) {
+    m_info.deviceName = deviceName;
 }
 
 ResultObject LightGroupImpl::launchAsyncForEach(std::function<ResultObject(ILightingDevicePtr&)> func) {

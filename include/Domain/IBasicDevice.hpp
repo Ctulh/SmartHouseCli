@@ -10,6 +10,7 @@ public:
     virtual ~IBasicDevice() = default;
 
 public:
+    virtual void setDeviceName(std::string const& deviceName) = 0;
     virtual ResultObject turnOn() = 0;
     virtual ResultObject turnOff() = 0;
     virtual ResultObject toggle() = 0;
@@ -17,4 +18,4 @@ public:
     virtual DeviceMethods getSupportedMethods() = 0;
 };
 
-using IBasicDevicePtr = std::unique_ptr<IBasicDevice>;
+using IBasicDevicePtr = std::shared_ptr<IBasicDevice>;

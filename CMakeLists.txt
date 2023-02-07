@@ -12,5 +12,5 @@ add_subdirectory(tests)
 
 add_executable(SmartHouseManagerCli main.cpp)
 
-target_link_libraries(SmartHouseManagerCli PRIVATE ${PROJECT_NAME}.AdaptersLib ${PROJECT_NAME}.DomainLib)
+target_link_libraries(SmartHouseManagerCli PRIVATE ${PROJECT_NAME}.AdaptersLib ${PROJECT_NAME}.DomainLib ${PROJECT_NAME}.ApplicationLib)
 

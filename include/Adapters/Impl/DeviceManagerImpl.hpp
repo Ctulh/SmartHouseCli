@@ -8,10 +8,10 @@ class DeviceManager final: public IDeviceManager {
 public:
     DeviceManager(IApplicationPtr applicationPtr);
 public:
-    void addNewDevice(BasicDeviceInfo const& deviceInfo, DEVICE_TYPE deviceType) override;
+    void addNewDevice(BasicDeviceInfo const& deviceInfo, DeviceFamily deviceFamily, DeviceType deviceType) override;
     void deleteDevice(BasicDeviceInfo const& deviceInfo) override;
     DevicesInfo getDevices() const override;
-    IBasicDevicePtr & getDevice(std::string const& deviceName) override;
+    IBasicDevicePtr getDevice(std::string const& deviceName) override;
     void swapDevices(BasicDeviceInfo const&, BasicDeviceInfo const&) override;
 
 private:
