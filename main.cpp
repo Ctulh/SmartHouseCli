@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "Domain/ILightingDevice.hpp"
-#include "Domain/Impl/LightingDevice.hpp"
+#include "Domain/LightingDevices/ILightingDevice.hpp"
+#include "Domain/LightingDevices/Impl/LightingDevice.hpp"
 #include "Domain/Impl/IPerformer.hpp"
 #include "Domain/Performers/XiaomiPerformer/XiaomiPerformer.hpp"
-#include "Domain/Impl/LightGroupImpl.hpp"
-#include "Domain/Impl/LightingDeviceColor.hpp"
+#include "Domain/LightingDevices/Impl/LightGroupImpl.hpp"
+#include "Domain/LightingDevices/Impl/LightingDeviceColor.hpp"
 #include <signal.h>
 #include <thread>
 
@@ -20,6 +20,7 @@
 #include "Adapters/Impl/DeviceManagerImpl.hpp"
 #include "Adapters/Impl/DeviceManipulatorImpl.hpp"
 
+#include "Domain/CastOrNullptr.hpp"
 
 int main() {
     signal(SIGPIPE, SIG_IGN);
@@ -43,13 +44,14 @@ int main() {
     while(true) {
         std::cin >> option;
         if (option == "on") {
-//            auto result = lightGroup.turnOn();
                 deviceManager->getDevice("LightGroup")->turnOn();
         }
         else if (option == "-b") {
                 int brightness;
                 std::cin >> brightness;
-                std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setBrightness(brightness);
+                auto lightingDevice = CastOrNullptr<ILightingDevice>(deviceManager->getDevice("LightGroup"));
+                if(lightingDevice)
+                    lightingDevice->setBrightness(brightness);
         }
         else if(option == "-c") {
             int red;
@@ -59,12 +61,15 @@ int main() {
             std::cin >> green;
             std::cin >> blue;
             std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setColor(red, green, blue);
-            //auto result = lightGroup.setColor(red, green, blue);
         }
         else if(option == "-k") {
             int colorTemperature;
             std::cin >> colorTemperature;
             std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setColorTemperature(colorTemperature);
+        }
+        else if(option == "-s") {
+            auto result = std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->getDeviceState();
+            std::cout << result.brightness << " " << result.colorTemperature << " " << result.color.red << '\n';
         }
         else if (option == "off") {
             deviceManager->getDevice("LightGroup")->turnOff();

@@ -4,20 +4,28 @@
 #include <gtest/gtest.h>
 
 #include "Domain/IBasicDevice.hpp"
-#include "Domain/ILightingDevice.hpp"
+#include "Domain/LightingDevices/ILightingDevice.hpp"
 #include "Domain/Impl/IPerformer.hpp"
 
-#include "Domain/Impl/LightingDevice.hpp"
+#include "Domain/LightingDevices/Impl/LightingDevice.hpp"
 
 namespace {
     constexpr char const* turnOnTest = "turnOnTest";
     constexpr char const* turnOffTest = "turnOffTest";
     constexpr char const* toggleTest = "toggleTest";
     constexpr char const* setBrightnessTest = "setBrightnessTest";
+    constexpr auto getDeviceTestValue = 1;
 }
 
 class AlwaysSuccessPerformer final: public IPerformer {
 public:
+    StateValueType getDeviceState(const BasicDeviceInfo &deviceInfo, DeviceProperties const& properties) override {
+        StateValueType returnValue;
+        for(auto const& el: properties) {
+            returnValue[el] = std::to_string(::getDeviceTestValue);
+        }
+        return returnValue;
+    }
     ResultObject turnOn(BasicDeviceInfo const&) override {
         return ResultObject(true, ::turnOnTest);
     }
@@ -40,6 +48,13 @@ public:
 
 class AlwaysFailPerformer final: public IPerformer {
 public:
+    StateValueType getDeviceState(const BasicDeviceInfo &deviceInfo, DeviceProperties const& properties) override {
+        StateValueType returnValue;
+        for(auto const& el: properties) {
+            returnValue[el] = std::to_string(::getDeviceTestValue);
+        }
+        return returnValue;
+    }
     ResultObject turnOn(BasicDeviceInfo const&) override {
         return ResultObject(false, ::turnOnTest);
     }
@@ -115,6 +130,14 @@ TEST_F(LightingDeviceAlwaysSuccess, testSetBtightnessDevice) {
     ASSERT_EQ(result.getMessage(), ::setBrightnessTest);
 };
 
+TEST_F(LightingDeviceAlwaysSuccess, testGetDeviceProperties) {
+    LightingDeviceState deviceState;
+
+    ASSERT_NO_THROW(deviceState = m_lightingDevice->getDeviceState());
+
+    ASSERT_EQ(deviceState.brightness, ::getDeviceTestValue);
+    ASSERT_EQ(deviceState.colorTemperature, ::getDeviceTestValue);
+};
 
 TEST_F(LightingDeviceAlwaysFail, testTurnOnDevice) {
     ResultObject result;
@@ -142,4 +165,13 @@ TEST_F(LightingDeviceAlwaysFail, testSetBtightnessDevice) {
     ASSERT_NO_THROW(result = m_lightingDevice->setBrightness(1));
     ASSERT_FALSE(result);
     ASSERT_EQ(result.getMessage(), ::setBrightnessTest);
+};
+
+TEST_F(LightingDeviceAlwaysFail, testGetDeviceProperties) {
+    LightingDeviceState deviceState;
+
+    ASSERT_NO_THROW(deviceState = m_lightingDevice->getDeviceState());
+
+    ASSERT_EQ(deviceState.brightness, ::getDeviceTestValue);
+    ASSERT_EQ(deviceState.colorTemperature, ::getDeviceTestValue);
 };

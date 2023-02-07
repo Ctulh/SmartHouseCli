@@ -2,9 +2,9 @@
 #pragma once
 
 #include "Domain/ILightGroup.hpp"
-#include "Domain/Impl/LightGroupImpl.hpp"
-#include "Domain/ILightingDevice.hpp"
-#include "Domain/ILightingDeviceColor.hpp"
+#include "Domain/LightingDevices/Impl/LightGroupImpl.hpp"
+#include "Domain/LightingDevices/ILightingDevice.hpp"
+#include "Domain/LightingDevices/ILightingDeviceColor.hpp"
 #include <gtest/gtest.h>
 
 class LightingDeviceTest final: public ILightingDeviceColor {
@@ -15,6 +15,9 @@ public:
         m_info.deviceType = DeviceType::XIAOMI_LIGHTING_DEVICE;
     }
 public:
+    LightingDeviceState getDeviceState() override {
+        return LightingDeviceState();
+    }
     void setDeviceName(std::string const& deviceName) override {
         m_info.deviceName = deviceName;
     }

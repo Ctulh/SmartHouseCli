@@ -30,8 +30,8 @@ std::optional<int> ResponseParser::getId() const {
     }
 }
 
-std::optional<std::vector<std::string>> ResponseParser::getResult() const {
-    auto result = m_jsonData->jsonParser["result"];
+std::optional<std::vector<std::string>> ResponseParser::getVector(std::string const& fieldName) const {
+    auto result = m_jsonData->jsonParser[fieldName];
     if(not result.has_value())
         return {};
 

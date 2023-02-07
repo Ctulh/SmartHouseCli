@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "ILightingDeviceColor.hpp"
+#include "Domain/LightingDevices/ILightingDeviceColor.hpp"
 
 class ILightGroup: public ILightingDeviceColor {
 public:

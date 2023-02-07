@@ -2,10 +2,24 @@
 // Created by ctuh on 1/31/23.
 //
 
-#include "Domain/Impl/LightingDevice.hpp"
+#include "Domain/LightingDevices/Impl/LightingDevice.hpp"
 
 LightingDevice::LightingDevice(IPerformerPtr performer, BasicDeviceInfo const& deviceInfo): m_performer(std::move(performer)),
                                                                                             m_info(deviceInfo) {}
+
+LightingDeviceState LightingDevice::getDeviceState() {
+    auto deviceState = m_performer->getDeviceState(m_info, {
+        DeviceProperty::POWER,
+        DeviceProperty::BRIGHT,
+        DeviceProperty::COLOR_TEMPERATURE,
+        DeviceProperty::COLOR
+    });
+
+    m_state.brightness = std::stoi(deviceState[DeviceProperty::BRIGHT]);
+    m_state.colorTemperature = std::stoi(deviceState[DeviceProperty::COLOR_TEMPERATURE]);
+
+    return m_state;
+}
 
 void LightingDevice::setDeviceName(std::string const& deviceName) {
     m_info.deviceName = deviceName;

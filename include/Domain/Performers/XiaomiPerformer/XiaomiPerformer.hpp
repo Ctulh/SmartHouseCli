@@ -11,6 +11,7 @@ public:
     ResultObject setBrightness(BasicDeviceInfo const&, int) override;
     ResultObject setColorTemperature(const BasicDeviceInfo &, int) override;
     ResultObject setColor(const BasicDeviceInfo &, int, int, int) override;
+    StateValueType getDeviceState(BasicDeviceInfo const& deviceInfo, DeviceProperties const& properties);
 private:
     static ResultObject createResponse(std::string const&);
 };

@@ -12,7 +12,7 @@ public:
     ~ResponseParser();
 public:
     std::optional<int> getId() const;
-    std::optional<std::vector<std::string>> getResult() const;
+    std::optional<std::vector<std::string>> getVector(std::string const& fieldName) const;
 
 private:
     struct Impl;

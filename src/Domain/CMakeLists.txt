@@ -7,13 +7,16 @@ set(HEADERS
         ${HEADERS_PATH}/Factories/IFactory.hpp
         ${HEADERS_PATH}/Factories/XiaomiDeviceFactory.hpp
         ${HEADERS_PATH}/Impl/DeviceContainer.hpp
-        ${HEADERS_PATH}/Impl/LightingDevice.hpp
-        ${HEADERS_PATH}/Impl/LightingDeviceColor.hpp
         ${HEADERS_PATH}/Impl/IPerformer.hpp
+        ${HEADERS_PATH}/LightingDevices/Impl/LightGroupImpl.hpp
+        ${HEADERS_PATH}/LightingDevices/Impl/LightingDevice.hpp
+        ${HEADERS_PATH}/LightingDevices/Impl/LightingDeviceColor.hpp
         ${HEADERS_PATH}/BasicDeviceInfo.hpp
         ${HEADERS_PATH}/IBasicDevice.hpp
         ${HEADERS_PATH}/IDeviceContainer.hpp
-        ${HEADERS_PATH}/ILightingDevice.hpp
+        ${HEADERS_PATH}/LightingDevices/ILightingDevice.hpp
+        ${HEADERS_PATH}/LightingDevices/ILightingDeviceColor.hpp
+        ${HEADERS_PATH}/LightingDevices/LightingDeviceState.hpp
         ${HEADERS_PATH}/ResultObject.hpp
         ${HEADERS_PATH}/Performers/XiaomiPerformer/XiaomiPerformer.hpp
         ${HEADERS_PATH}/Performers/XiaomiPerformer/RequestCreator.hpp
@@ -23,10 +26,10 @@ set(HEADERS
 set(SOURCES
         Factories/AbstractFactory.cpp
         Factories/XiaomiDeviceFactory.cpp
-        Impl/LightGroupImpl.cpp
         Impl/DeviceContainer.cpp
-        Impl/LightingDevice.cpp
-        Impl/LightingDeviceColor.cpp
+        LightingDevices/Impl/LightGroupImpl.cpp
+        LightingDevices/Impl/LightingDevice.cpp
+        LightingDevices/Impl/LightingDeviceColor.cpp
         Performers/XiaomiPerformer/XiaomiPerformer.cpp
         Performers/XiaomiPerformer/RequestCreator.cpp
         Performers/XiaomiPerformer/RequestSender.cpp

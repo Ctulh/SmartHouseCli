@@ -75,6 +75,39 @@ std::string RequestCreator::setColor(uint8_t red, uint8_t green, uint8_t blue, c
     return ss.str();
 }
 
+std::string RequestCreator::getDeviceProperties(DeviceProperties const& deviceProperties) {
+    std::stringstream ss;
+    ss << "{"
+          "\"id\":1,"
+          "\"method\":\"get_prop\","
+          "\"params\":[";
+
+        for(auto property: deviceProperties) {
+            ss << "\"" << devicePropertyToString(property) << "\"" << ",";
+        }
+
+        auto stringWithoutLastComma = ss.str().substr(0, ss.str().size()-1);
+        ss.str("");
+        ss << stringWithoutLastComma;
+
+       ss <<"]"
+           "}\r\n";
+    return ss.str();
+}
+
+std::string RequestCreator::devicePropertyToString(DeviceProperty deviceProperty) {
+    switch(deviceProperty) {
+        case DeviceProperty::POWER: return "power";
+        case DeviceProperty::BRIGHT: return "bright";
+        case DeviceProperty::COLOR_TEMPERATURE: return "ct";
+        case DeviceProperty::COLOR: return "rgb";
+        case DeviceProperty::HUE: return "hue";
+        case DeviceProperty::SATURATION: return "sat";
+        case DeviceProperty::COLOR_MODE: return "color_mode";
+        default: return "not_exist";
+    }
+}
+
 uint32_t RequestCreator::getIntFromRGB(uint8_t red, uint8_t green, uint8_t blue) {
     uint32_t result = 0;
 

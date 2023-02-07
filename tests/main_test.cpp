@@ -10,6 +10,7 @@
 #include "DomainTests/PerformerTests/RequestBuilderTest.hpp"
 #include "DomainTests/PerformerTests/ResponseParserTest.hpp"
 #include "UtilsTests/StringOperationsTest.hpp"
+#include "DomainTests/CastOrNullptrTest.hpp"
 
 int main(int argc, char** argv) {
     using testing::InitGoogleTest;

@@ -6,8 +6,8 @@
 #include "Domain/Performers/XiaomiPerformer/XiaomiPerformer.hpp"
 
 
-#include "Domain/Impl/LightingDeviceColor.hpp"
-#include "Domain/Impl/LightingDevice.hpp"
+#include "Domain/LightingDevices/Impl/LightingDeviceColor.hpp"
+#include "Domain/LightingDevices/Impl/LightingDevice.hpp"
 
 
 IBasicDevicePtr XiaomiDeviceFactory::createDevice(DeviceType deviceType, BasicDeviceInfo const& deviceInfo) const {

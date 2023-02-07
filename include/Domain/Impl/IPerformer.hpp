@@ -5,6 +5,7 @@
 
 #include "Domain/ResultObject.hpp"
 #include "Domain/BasicDeviceInfo.hpp"
+#include "Domain/DeviceProperty.hpp"
 
 class IPerformer {
 public:
@@ -17,6 +18,7 @@ public:
     virtual ResultObject setBrightness(BasicDeviceInfo const&, int) = 0;
     virtual ResultObject setColorTemperature(BasicDeviceInfo const&, int) = 0;
     virtual ResultObject setColor(BasicDeviceInfo const&, int, int, int) = 0;
+    virtual StateValueType getDeviceState(BasicDeviceInfo const& deviceInfo, DeviceProperties const& properties) = 0;
 };
 
 using IPerformerPtr = std::unique_ptr<IPerformer>;

@@ -4,7 +4,7 @@
 
 #include "Application/Impl/ApplicationImpl.hpp"
 #include "Domain/Factories/AbstractFactory.hpp"
-#include "Domain/Impl/LightGroupImpl.hpp"
+#include "Domain/LightingDevices/Impl/LightGroupImpl.hpp"
 
 ApplicationImpl::ApplicationImpl(IDeviceContainerPtr deviceContainerPtr): m_deviceContainer(std::move(deviceContainerPtr)) {}
 

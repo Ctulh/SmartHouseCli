@@ -2,11 +2,11 @@
 // Created by ctuh on 2/3/23.
 //
 
-#include "Domain/Impl/LightGroupImpl.hpp"
+#include "Domain/LightingDevices/Impl/LightGroupImpl.hpp"
 
 #include <algorithm>
 #include <future>
-#include "Domain/ILightingDeviceColor.hpp"
+#include "Domain/LightingDevices/ILightingDeviceColor.hpp"
 
 LightGroupImpl::LightGroupImpl() {
     m_info.deviceName = "LightGroup";
@@ -83,6 +83,10 @@ ResultObject LightGroupImpl::setBrightness(int brightnessPercents) {
         return lightingDevice->setBrightness(brightnessPercents);
     });
     return result;
+}
+
+LightingDeviceState LightGroupImpl::getDeviceState() {
+    return dynamic_cast<ILightingDeviceColor*>(m_devices.begin()->get())->getDeviceState();
 }
 
 ResultObject LightGroupImpl::setColor(uint8_t red, uint8_t green, uint8_t blue) {

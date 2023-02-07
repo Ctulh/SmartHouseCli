@@ -10,10 +10,26 @@
 #include <algorithm>
 
 ResultObject XiaomiPerformer::createResponse(std::string const& response) {
-
     ResponseParser parser(response);
-    auto result = parser.getResult();
+    auto result = parser.getVector("result");
     return ResultObject(true, response);
+}
+
+StateValueType XiaomiPerformer::getDeviceState(const BasicDeviceInfo &deviceInfo, DeviceProperties const& properties) {
+    auto request = RequestCreator::getDeviceProperties(properties);
+    auto response = RequestSender::send(deviceInfo.deviceAddr, request);
+
+    StateValueType output;
+    ResponseParser parser(response);
+    auto parameters = parser.getVector("result");
+    if(not parameters.has_value())
+        return {};
+
+    auto parametersValue = parameters.value();
+    for(int i = 0; i < std::min(properties.size(), parametersValue.size()); i++) {
+        output[properties[i]] = parametersValue[i];
+    }
+    return output;
 }
 
 ResultObject XiaomiPerformer::turnOn(BasicDeviceInfo const& deviceInfo) {

@@ -173,3 +173,19 @@ TEST(RequestCreatorTest, getIntFromRGBWithAllColors) {
     ASSERT_NO_THROW(actualResult = RequestCreator::getIntFromRGB(255, 255, 255));
     ASSERT_EQ(expectedResult, actualResult);
 }
+
+TEST(RequestCreatorTest, buildGetProertiesTest) {
+    constexpr auto expectedResult = "{\"id\":1,\"method\":\"get_prop\",\"params\":[\"power\",\"bright\",\"ct\",\"rgb\",\"hue\",\"sat\",\"color_mode\"]}\r\n";
+
+    std::string actualResult;
+    ASSERT_NO_THROW(actualResult = RequestCreator::getDeviceProperties({
+                                            DeviceProperty::POWER,
+                                            DeviceProperty::BRIGHT,
+                                            DeviceProperty::COLOR_TEMPERATURE,
+                                            DeviceProperty::COLOR,
+                                            DeviceProperty::HUE,
+                                            DeviceProperty::SATURATION,
+                                            DeviceProperty::COLOR_MODE}));
+
+    ASSERT_EQ(actualResult, expectedResult);
+}
