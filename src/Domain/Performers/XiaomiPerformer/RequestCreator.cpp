@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "Domain/Performers/XiaomiPerformer/RequestCreator.hpp"
+#include "Utils/RGBOperations.hpp"
 
 std::string RequestCreator::turnOn(std::string const& effect, int duration) {
     std::stringstream ss;
@@ -65,7 +66,7 @@ std::string RequestCreator::setColorTemperature(int ctValue, const std::string &
 }
 
 std::string RequestCreator::setColor(uint8_t red, uint8_t green, uint8_t blue, const std::string &effect, int duration) {
-    auto colorValue = getIntFromRGB(red, green, blue);
+    auto colorValue = RGBOperations::RGBToInt(red, green, blue);
     std::stringstream ss;
     ss << "{"
           "\"id\":1,"
@@ -106,14 +107,4 @@ std::string RequestCreator::devicePropertyToString(DeviceProperty deviceProperty
         case DeviceProperty::COLOR_MODE: return "color_mode";
         default: return "not_exist";
     }
-}
-
-uint32_t RequestCreator::getIntFromRGB(uint8_t red, uint8_t green, uint8_t blue) {
-    uint32_t result = 0;
-
-    auto eightBitPtr = static_cast<char*>(static_cast<void*>(&result));
-    *(eightBitPtr++) = blue;
-    *(eightBitPtr++) = green;
-    *(eightBitPtr) = red;
-    return result;
 }

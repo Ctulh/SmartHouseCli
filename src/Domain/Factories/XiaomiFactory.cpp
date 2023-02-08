@@ -2,7 +2,7 @@
 // Created by ctuh on 2/6/23.
 //
 
-#include "Domain/Factories/XiaomiDeviceFactory.hpp"
+#include "Domain/Factories/XiaomiFactory.hpp"
 #include "Domain/Performers/XiaomiPerformer/XiaomiPerformer.hpp"
 
 
@@ -10,7 +10,7 @@
 #include "Domain/LightingDevices/Impl/LightingDevice.hpp"
 
 
-IBasicDevicePtr XiaomiDeviceFactory::createDevice(DeviceType deviceType, BasicDeviceInfo const& deviceInfo) const {
+IBasicDevicePtr XiaomiFactory::createDevice(DeviceType deviceType, BasicDeviceInfo const& deviceInfo) const {
     switch (deviceType) {
         case DeviceType::XIAOMI_LIGHTING_DEVICE:
             return std::make_shared<LightingDevice>(std::make_unique<XiaomiPerformer>(), deviceInfo);

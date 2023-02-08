@@ -13,5 +13,6 @@ public:
     ResultObject setColor(const BasicDeviceInfo &, int, int, int) override;
     StateValueType getDeviceState(BasicDeviceInfo const& deviceInfo, DeviceProperties const& properties);
 private:
+    static StateValueType parseDeviceState(std::string const& response, DeviceProperties const& properties);
     static ResultObject createResponse(std::string const&);
 };

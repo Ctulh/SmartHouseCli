@@ -8,6 +8,5 @@ class LightingDeviceColor final: public virtual ILightingDeviceColor, public Lig
 public:
     explicit LightingDeviceColor(IPerformerPtr performer, BasicDeviceInfo const& deviceInfo);
 public:
-    ResultObject setColor(uint8_t  red, uint8_t  green, uint8_t  blue) override;
-    LightingDeviceState getDeviceState() override;
+    ResultObject setColor(uint8_t red, uint8_t green, uint8_t blue) override;
 };

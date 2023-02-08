@@ -10,4 +10,5 @@ class StringOperations {
 public:
     static StringVector split(std::string const& str, char delimiter);
     static std::string strip(std::string const& str);
+    static bool isStringANumber(std::string const& str);
 };

@@ -37,3 +37,13 @@ StringVector StringOperations::split(std::string const& str, char delimiter) {
 
     return result;
 }
+
+bool StringOperations::isStringANumber(const std::string &str) {
+    bool isNumber = true;
+    std::for_each(str.begin(), str.end(), [&isNumber](char el){
+        if(!std::isdigit(el)) {
+            isNumber = false;
+        }
+    });
+    return isNumber;
+}

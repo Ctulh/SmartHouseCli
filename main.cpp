@@ -69,7 +69,7 @@ int main() {
         }
         else if(option == "-s") {
             auto result = std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->getDeviceState();
-            std::cout << result.brightness << " " << result.colorTemperature << " " << result.color.red << '\n';
+            std::cout << result.brightness << " " << result.colorTemperature << " " << (int)result.color.red << " " << (int)result.color.green << " " << (int)result.color.blue << '\n';
         }
         else if (option == "off") {
             deviceManager->getDevice("LightGroup")->turnOff();

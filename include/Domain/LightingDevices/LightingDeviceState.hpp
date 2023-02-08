@@ -1,16 +1,25 @@
 
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
+#include <algorithm>
+
+#include "Domain/BasicDeviceInfo.hpp"
+#include "Domain/DeviceProperty.hpp"
 
 struct RGB {
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
+    uint8_t red = 0;
+    uint8_t green = 0;
+    uint8_t blue = 0;
 };
 
 struct LightingDeviceState {
-    uint8_t brightness;
+    LightingDeviceState() = default;
+    LightingDeviceState(StateValueType const& deviceState);
+
+public:
+    bool isTurnedOn;
+    uint16_t brightness;
     uint16_t colorTemperature;
     RGB color;
 };

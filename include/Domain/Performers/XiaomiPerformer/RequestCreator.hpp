@@ -24,5 +24,4 @@ public:
 
 public:
     static std::string devicePropertyToString(DeviceProperty deviceProperty);
-    static uint32_t getIntFromRGB(uint8_t red, uint8_t green, uint8_t blue);
 };

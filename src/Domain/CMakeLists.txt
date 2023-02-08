@@ -5,7 +5,7 @@ set(HEADERS_PATH ${PROJECT_SOURCE_DIR}/include/Domain)
 set(HEADERS
         ${HEADERS_PATH}/Factories/AbstractFactory.hpp
         ${HEADERS_PATH}/Factories/IFactory.hpp
-        ${HEADERS_PATH}/Factories/XiaomiDeviceFactory.hpp
+        ${HEADERS_PATH}/Factories/XiaomiFactory.hpp
         ${HEADERS_PATH}/Impl/DeviceContainer.hpp
         ${HEADERS_PATH}/Impl/IPerformer.hpp
         ${HEADERS_PATH}/LightingDevices/Impl/LightGroupImpl.hpp
@@ -25,8 +25,9 @@ set(HEADERS
 
 set(SOURCES
         Factories/AbstractFactory.cpp
-        Factories/XiaomiDeviceFactory.cpp
+        Factories/XiaomiFactory.cpp
         Impl/DeviceContainer.cpp
+        LightingDevices/LightingDeviceState.cpp
         LightingDevices/Impl/LightGroupImpl.cpp
         LightingDevices/Impl/LightingDevice.cpp
         LightingDevices/Impl/LightingDeviceColor.cpp

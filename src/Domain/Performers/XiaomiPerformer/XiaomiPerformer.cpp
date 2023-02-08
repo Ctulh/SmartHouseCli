@@ -15,12 +15,10 @@ ResultObject XiaomiPerformer::createResponse(std::string const& response) {
     return ResultObject(true, response);
 }
 
-StateValueType XiaomiPerformer::getDeviceState(const BasicDeviceInfo &deviceInfo, DeviceProperties const& properties) {
-    auto request = RequestCreator::getDeviceProperties(properties);
-    auto response = RequestSender::send(deviceInfo.deviceAddr, request);
-
+StateValueType XiaomiPerformer::parseDeviceState(const std::string &response, const DeviceProperties &properties) {
     StateValueType output;
     ResponseParser parser(response);
+
     auto parameters = parser.getVector("result");
     if(not parameters.has_value())
         return {};
@@ -30,6 +28,12 @@ StateValueType XiaomiPerformer::getDeviceState(const BasicDeviceInfo &deviceInfo
         output[properties[i]] = parametersValue[i];
     }
     return output;
+}
+
+StateValueType XiaomiPerformer::getDeviceState(const BasicDeviceInfo &deviceInfo, DeviceProperties const& properties) {
+    auto request = RequestCreator::getDeviceProperties(properties);
+    auto response = RequestSender::send(deviceInfo.deviceAddr, request);
+    return parseDeviceState(response, properties);
 }
 
 ResultObject XiaomiPerformer::turnOn(BasicDeviceInfo const& deviceInfo) {
