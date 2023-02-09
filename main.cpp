@@ -35,10 +35,6 @@ int main() {
 
     application->createLightGroup({"bulb1", "bulb2", "bulb3"});
 
-
-    BasicDeviceInfo vacuumInfo {.deviceName = "cleaner", .deviceAddr = "192.168.100.15"};
-    auto vacuum = std::make_unique<LightingDevice>(std::make_unique<XiaomiPerformer>(), vacuumInfo);
-
     std::string option;
 
     while(true) {
@@ -60,12 +56,17 @@ int main() {
             std::cin >> red;
             std::cin >> green;
             std::cin >> blue;
-            std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setColor(red, green, blue);
+            auto lightingDevice = CastOrNullptr<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"));
+            if(lightingDevice)
+                lightingDevice->setColor(red, green, blue);
         }
         else if(option == "-k") {
             int colorTemperature;
             std::cin >> colorTemperature;
-            std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->setColorTemperature(colorTemperature);
+            auto lightingDevice = CastOrNullptr<ILightingDevice>(deviceManager->getDevice("LightGroup"));
+            if(lightingDevice)
+                lightingDevice->setColorTemperature(colorTemperature);
+
         }
         else if(option == "-s") {
             auto result = std::dynamic_pointer_cast<ILightingDeviceColor>(deviceManager->getDevice("LightGroup"))->getDeviceState();
