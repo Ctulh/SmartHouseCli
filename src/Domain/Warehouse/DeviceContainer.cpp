@@ -4,8 +4,27 @@
 
 #include <algorithm>
 #include <functional>
+#include <fstream>
 
-#include "Domain/Impl/DeviceContainer.hpp"
+#include "Domain/Warehouse/DeviceContainer.hpp"
+
+#include "Domain/Warehouse/DeviceWriterYaml.hpp"
+
+namespace {
+    std::string const file = "/home/output.yaml";
+}
+
+DeviceContainer::DeviceContainer() {
+
+}
+
+DeviceContainer::~DeviceContainer() noexcept {
+    DeviceWriterYaml yaml;
+    std::ofstream output;
+    output.open(file);
+    yaml.write(m_devices, output);
+    output.close();
+}
 
 std::string DeviceContainer::generateUniqueNameForDevice(std::string const& deviceName) {
     if(m_devices.empty())
@@ -31,6 +50,7 @@ std::string DeviceContainer::generateUniqueNameForDevice(std::string const& devi
         }
         counter++;
     }
+    return deviceName;
 }
 
 void DeviceContainer::addDevice(IBasicDevicePtr devicePtr) {

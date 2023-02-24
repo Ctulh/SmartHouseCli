@@ -1,6 +1,6 @@
 [requires]
 gtest/cci.20210126
-nlohmann_json/3.11.2
+yaml-cpp/0.7.0
 
 [generators]
 cmake

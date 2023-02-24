@@ -6,8 +6,12 @@ set(HEADERS
         ${HEADERS_PATH}/Factories/AbstractFactory.hpp
         ${HEADERS_PATH}/Factories/IFactory.hpp
         ${HEADERS_PATH}/Factories/XiaomiFactory.hpp
-        ${HEADERS_PATH}/Impl/DeviceContainer.hpp
-        ${HEADERS_PATH}/Impl/IPerformer.hpp
+        ${HEADERS_PATH}/Warehouse/DeviceContainer.hpp
+        ${HEADERS_PATH}/Warehouse/DeviceReaderYaml.hpp
+        ${HEADERS_PATH}/Warehouse/DeviceWriterYaml.hpp
+        ${HEADERS_PATH}/Warehouse/IDeviceReader.hpp
+        ${HEADERS_PATH}/Warehouse/IDeviceWriter.hpp
+        ${HEADERS_PATH}/Warehouse/IPerformer.hpp
         ${HEADERS_PATH}/LightingDevices/Impl/LightGroupImpl.hpp
         ${HEADERS_PATH}/LightingDevices/Impl/LightingDevice.hpp
         ${HEADERS_PATH}/LightingDevices/Impl/LightingDeviceColor.hpp
@@ -26,7 +30,9 @@ set(HEADERS
 set(SOURCES
         Factories/AbstractFactory.cpp
         Factories/XiaomiFactory.cpp
-        Impl/DeviceContainer.cpp
+        Warehouse/DeviceContainer.cpp
+        Warehouse/DeviceReaderYaml.cpp
+        Warehouse/DeviceWriterYaml.cpp
         LightingDevices/LightingDeviceState.cpp
         LightingDevices/Impl/LightGroupImpl.cpp
         LightingDevices/Impl/LightingDevice.cpp
@@ -41,5 +47,6 @@ add_library(${LIB_NAME} ${HEADERS} ${SOURCES})
 
 set(INET_INCLUDE ${PROJECT_SOURCE_DIR}/third_party/InetLib/include)
 
-target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${INET_INCLUDE} ${CONAN_INCLUDE_DIRS_NLOHMANN_JSON})
-target_link_libraries(${LIB_NAME} PRIVATE InetLib SocketReaderLib ${PROJECT_NAME}.UtilsLib UtilsLib ${CONAN_LIBS_NLOHMANN_JSON})
+target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include ${INET_INCLUDE} ${CONAN_INCLUDE_DIRS_YAMLCPP})
+
+target_link_libraries(${LIB_NAME} PRIVATE InetLib SocketReaderLib ${PROJECT_NAME}.UtilsLib UtilsLib ${CONAN_LIBS})

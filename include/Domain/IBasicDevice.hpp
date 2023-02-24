@@ -19,3 +19,4 @@ public:
 };
 
 using IBasicDevicePtr = std::shared_ptr<IBasicDevice>;
+using IBasicDevices = std::vector<IBasicDevicePtr>;

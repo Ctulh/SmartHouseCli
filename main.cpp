@@ -1,10 +1,6 @@
 #include <iostream>
 
 #include "Domain/LightingDevices/ILightingDevice.hpp"
-#include "Domain/LightingDevices/Impl/LightingDevice.hpp"
-#include "Domain/Impl/IPerformer.hpp"
-#include "Domain/Performers/XiaomiPerformer/XiaomiPerformer.hpp"
-#include "Domain/LightingDevices/Impl/LightGroupImpl.hpp"
 #include "Domain/LightingDevices/Impl/LightingDeviceColor.hpp"
 #include <signal.h>
 #include <thread>
@@ -13,7 +9,7 @@
 #include "Application/Impl/ApplicationImpl.hpp"
 
 #include "Domain/IDeviceContainer.hpp"
-#include "Domain/Impl/DeviceContainer.hpp"
+#include "Domain/Warehouse/DeviceContainer.hpp"
 
 #include "Adapters/IDeviceManager.hpp"
 #include "Adapters/IDeviceManipulator.hpp"
@@ -76,6 +72,7 @@ int main() {
             deviceManager->getDevice("LightGroup")->turnOff();
         }
         else {
+            break;
         }
     }
 }
